@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Bhavishya Mishra — AI/ML Portfolio</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;500;700&family=Roboto+Mono:wght@400;600&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg:#0b0b10;
+      --card:#111216;
+      --accent1: #00c6ff;
+      --accent2: #0072ff;
+      --glass: rgba(255,255,255,0.04);
+      --muted: #bfc7d1;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%; margin:0; background:var(--bg); color:#e6eef8; font-family:Inter, system-ui, sans-serif; -webkit-font-smoothing:antialiased}
+    a{color:inherit}
+    header{
+      padding:3rem 1.5rem;
+      text-align:center;
+      background:linear-gradient(90deg,var(--accent1),var(--accent2));
+      background-size:200% 200%;
+      animation: gradient 8s ease infinite;
+      clip-path: polygon(0 0,100% 0,100% 78%,0 92%);
+      position:relative;
+      overflow:visible;
+    }
+    @keyframes gradient{
+      0%{background-position:0% 50%}
+      50%{background-position:100% 50%}
+      100%{background-position:0% 50%}
+    }
+
+    .container{max-width:1100px; margin: -60px auto 3rem; padding: 0 1rem;}
+    .hero {
+      background: linear-gradient(180deg, rgba(255,255,255,0.03), transparent);
+      border-radius:14px;
+      padding: 1.2rem 1.2rem;
+      display:flex;
+      gap:1.2rem;
+      align-items:center;
+      box-shadow: 0 8px 30px rgba(2,6,23,0.6);
+      border:1px solid rgba(255,255,255,0.03);
+      backdrop-filter: blur(6px);
+    }
+    .profile {
+      width:160px; height:160px; border-radius:20px; overflow:hidden;
+      border:4px solid rgba(255,255,255,0.08); flex:0 0 160px;
+      background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.2));
+    }
+    .profile img{width:100%; height:100%; object-fit:cover; display:block}
+
+    .hero-text{flex:1; text-align:left}
+    .hero-text h1{margin:0; font-size:1.85rem; letter-spacing:0.2px}
+    .subtitle {
+      margin-top:0.35rem;
+      color:var(--muted);
+      display:flex;
+      align-items:center;
+      gap:0.8rem;
+      font-weight:500;
+    }
+
+    /* typing effect */
+    .typing {
+      display:inline-block;
+      border-right:2px solid rgba(255,255,255,0.85);
+      padding-right:6px;
+      font-family: 'Roboto Mono', monospace;
+      white-space:nowrap;
+      overflow:hidden;
+      max-width:28ch;
+      animation: typing 3.6s steps(28,end) 1, blink 700ms infinite step-end;
+    }
+    @keyframes typing{
+      from{max-width:0}
+      to{max-width:28ch}
+    }
+    @keyframes blink{50%{border-color: transparent}}
+
+    .hero-actions{margin-top:1rem; display:flex; gap:.7rem; align-items:center}
+    .btn {
+      display:inline-flex; gap:.6rem; align-items:center;
+      background:transparent; color:white; padding:.6rem .9rem; border-radius:999px; border:1px solid rgba(255,255,255,0.08);
+      cursor:pointer; text-decoration:none; font-weight:600;
+      transition: transform .18s ease, background .18s;
+    }
+    .btn.primary{background:linear-gradient(90deg,var(--accent1),var(--accent2)); color:#042230; border:0}
+    .btn:hover{transform:translateY(-3px)}
+    .btn.ghost{background:var(--glass)}
+
+    /* sections */
+    section{margin-top:2rem}
+    h2{font-size:1.05rem; margin:0 0 1rem 0; color:var(--accent1); padding-left:8px; border-left:4px solid rgba(255,255,255,0.06)}
+    .grid{display:grid; grid-template-columns:repeat(12,1fr); gap:1rem}
+    .card{grid-column: span 4; background:var(--card); padding:1rem; border-radius:12px; border:1px solid rgba(255,255,255,0.03); transition: transform .25s ease, box-shadow .25s ease}
+    .card:hover{transform:translateY(-8px); box-shadow:0 18px 35px rgba(2,6,23,0.6)}
+    .card h3{margin:0 0 .4rem 0; font-size:1rem}
+    .muted{color:var(--muted); font-size:0.92rem}
+
+    /* skills */
+    .skill {margin-bottom:.8rem}
+    .skill .label{display:flex; justify-content:space-between; font-size:.92rem; margin-bottom:.35rem}
+    .bar {height:10px; background:rgba(255,255,255,0.06); border-radius:999px; overflow:hidden}
+    .bar > i{display:block; height:100%; width:0; background: linear-gradient(90deg,var(--accent1),var(--accent2)); border-radius:999px; transition:width 1.2s cubic-bezier(.2,.9,.2,1)}
+
+    /* responsive */
+    @media (max-width:900px){
+      .grid{grid-template-columns:repeat(6,1fr)}
+      .card{grid-column: span 6}
+      .hero{flex-direction:row; gap:.9rem}
+      .hero-text{text-align:left}
+    }
+    @media (max-width:560px){
+      .hero{flex-direction:column; align-items:center; text-align:center}
+      .hero-text{text-align:center}
+      .profile{border-radius:50%}
+      .card{padding:.9rem}
+    }
+
+    footer{margin-top:2.4rem; text-align:center; color:var(--muted); padding:2rem 1rem}
+    /* small resume modal */
+    .modal {
+      position:fixed; inset:0; display:flex; align-items:center; justify-content:center;
+      background:rgba(0,0,0,0.6); z-index:60; opacity:0; pointer-events:none; transition:opacity .2s;
+    }
+    .modal.open{opacity:1; pointer-events:auto}
+    .modal .frame{
+      width:90%; max-width:980px; height:80vh; background:#ffffff; border-radius:10px; overflow:hidden; box-shadow: 0 30px 80px rgba(2,6,23,0.7);
+      display:flex; flex-direction:column;
+    }
+    .frame header{display:flex; justify-content:space-between; align-items:center; padding:.6rem 1rem; background:linear-gradient(90deg,var(--accent1),var(--accent2)); color:#002233}
+    .frame header .close{background:transparent; border:0; color:#002233; font-weight:700; cursor:pointer}
+    .frame iframe{flex:1; border:0; background:white}
+    /* little animated entrance for cards */
+    .card{opacity:0; transform:translateY(6px)}
+    .card.show{opacity:1; transform:translateY(0); transition:all .45s cubic-bezier(.2,.9,.2,1)}
+  </style>
+</head>
+<body>
+
+  <header>
+    <div style="max-width:1100px;margin:0 auto;">
+      <div style="display:flex;gap:1rem;align-items:center;justify-content:center;flex-direction:column">
+        <div style="width:96px;height:96px;border-radius:16px;overflow:hidden;border:4px solid rgba(255,255,255,0.12);">
+          <!-- YOUR PHOTO ADDED -->
+          <img src="bhavishya.jpg" alt="Bhavishya" style="width:100%;height:100%;object-fit:cover;display:block" onerror="this.src='https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=400&h=400&fit=crop&crop=face'">
+        </div>
+        <h1 style="margin:.45rem 0 0;font-size:1.45rem;color:#001a26">Bhavishya Raj Mishra</h1>
+        <div class="subtitle">
+          <span class="typing">Computer Science Student • AI & ML Enthusiast</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <div class="hero">
+      <div class="profile">
+        <!-- YOUR PHOTO ADDED -->
+        <img src="bhavishya.jpg" alt="Profile photo" onerror="this.src='https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=400&h=400&fit=crop&crop=face'">
+      </div>
+
+      <div class="hero-text">
+        <h1>Hello — I'm Bhavishya</h1>
+        <p class="muted">BCA student focused on AI / Data Science. Currently interning with Nasscom Foundation & Capgemini. I build web tools and fun ML projects.</p>
+
+        <div class="hero-actions">
+          <button class="btn primary" id="openResume">📄 View Resume</button>
+          <!-- YOUR RESUME ADDED -->
+          <a class="btn ghost" href="Mishra word file.pdf" download>⬇ Download Resume</a>
+          <a class="btn" href="#projects">💼 Projects</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Projects -->
+    <section id="projects">
+      <h2>Projects</h2>
+      <div class="grid" id="projectsGrid">
+        <article class="card">
+          <h3>Contact Management System</h3>
+          <p class="muted"><strong>Tech:</strong> Python, HTML, CSS, Java</p>
+          <p>Web-based contact manager with add/update/delete/search and Python backend for data processing. Responsive UI and sorting features.</p>
+        </article>
+
+        <article class="card">
+          <h3>Stone Paper Scissors Game</h3>
+          <p class="muted"><strong>Tech:</strong> Python, HTML, CSS, JavaScript</p>
+          <p>Interactive web game with real-time score tracking, responsive design, and backend Python handling for persistent scores.</p>
+        </article>
+
+        <article class="card">
+          <h3>AI in Data Science — Internship Work</h3>
+          <p class="muted"><strong>Context:</strong> Nasscom Foundation with Capgemini</p>
+          <p>Worked on data cleaning, exploratory analysis, and beginner ML pipelines during the internship.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- Skills -->
+    <section id="skills">
+      <h2>Skills</h2>
+      <div style="display:grid;grid-template-columns: 1fr 320px; gap:1rem; align-items:start;">
+        <div>
+          <div class="card" style="grid-column:1/span1">
+            <div class="skill">
+              <div class="label"><span>Python</span><span class="muted">90%</span></div>
+              <div class="bar"><i data-w="90%"></i></div>
+            </div>
+            <div class="skill">
+              <div class="label"><span>HTML / CSS / JS</span><span class="muted">85%</span></div>
+              <div class="bar"><i data-w="85%"></i></div>
+            </div>
+            <div class="skill">
+              <div class="label"><span>NumPy / Pandas / Matplotlib</span><span class="muted">80%</span></div>
+              <div class="bar"><i data-w="80%"></i></div>
+            </div>
+            <div class="skill">
+              <div class="label"><span>C / C++</span><span class="muted">70%</span></div>
+              <div class="bar"><i data-w="70%"></i></div>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <div class="card" style="text-align:center">
+            <h3 style="margin-top:0">Quick Info</h3>
+            <p class="muted"><strong>Education:</strong> BCA (2022–2025)</p>
+            <p class="muted"><strong>Location:</strong> Meerut, Uttar Pradesh</p>
+            <p class="muted"><strong>Languages:</strong> Hindi, English, Maithili</p>
+            <div style="margin-top:12px">
+              <a class="btn primary" href="#projects">See Projects</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Achievements -->
+    <section id="achievements">
+      <h2>Achievements</h2>
+      <div class="grid">
+        <div class="card">
+          <h3>Internship</h3>
+          <p class="muted">Nasscom Foundation with Capgemini — AI in Data Science (08/2024 - Present)</p>
+        </div>
+        <div class="card">
+          <h3>Certification</h3>
+          <p class="muted">Certification in CCC (Course on Computer Concepts)</p>
+        </div>
+        <div class="card">
+          <h3>Academic</h3>
+          <p class="muted">BCA (66.8%) — Dewan Institute of Management Studies</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Blog -->
+    <section id="blog">
+      <h2>Blog</h2>
+      <div class="card">
+        <p>✨ Soon I will publish articles about small ML projects, tutorials, and my internship learnings. Stay tuned.</p>
+        <p class="muted">Tip: You can add a /blog page or embed Medium posts later.</p>
+      </div>
+    </section>
+
+    <footer>
+      © 2025 Bhavishya Raj Mishra — Built with ❤
+    </footer>
+  </main>
+
+  <!-- Resume Modal -->
+  <div class="modal" id="resumeModal" aria-hidden="true">
+    <div class="frame" role="dialog" aria-modal="true">
+      <header>
+        <div style="font-weight:700">Resume — Bhavishya Raj Mishra</div>
+        <div>
+          <!-- YOUR RESUME ADDED -->
+          <a class="btn" href="Mishra word file.pdf" download style="margin-right:.6rem">⬇</a>
+          <button class="close btn" id="closeResume">✕</button>
+        </div>
+      </header>
+      <!-- YOUR RESUME PDF PREVIEW -->
+      <iframe id="resumeFrame" src="Mishra word file.pdf"></iframe>
+    </div>
+  </div>
+
+  <script>
+    // resume modal control
+    const openBtn = document.getElementById('openResume');
+    const closeBtn = document.getElementById('closeResume');
+    const modal = document.getElementById('resumeModal');
+
+    openBtn.addEventListener('click', () => {
+      modal.classList.add('open');
+      modal.setAttribute('aria-hidden','false');
+    });
+    closeBtn.addEventListener('click', () => {
+      modal.classList.remove('open');
+      modal.setAttribute('aria-hidden','true');
+    });
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) { modal.classList.remove('open'); modal.setAttribute('aria-hidden','true'); }
+    });
+
+    // animate skill bars on load/scroll
+    function animateSkills(){
+      document.querySelectorAll('.bar i').forEach((el, idx) => {
+        const w = el.getAttribute('data-w') || '70%';
+        setTimeout(()=> el.style.width = w, 200 + idx*120);
+      });
+    }
+
+    // reveal cards with slight delay
+    function revealCards(){
+      document.querySelectorAll('.card').forEach((c,i)=>{
+        setTimeout(()=> c.classList.add('show'), 120 + i*100);
+      });
+    }
+
+    // smooth scroll for internal links
+    document.querySelectorAll('a[href^="#"]').forEach(a=>{
+      a.addEventListener('click', e=>{
+        e.preventDefault();
+        const id = a.getAttribute('href');
+        if (id === '#') return;
+        document.querySelector(id).scrollIntoView({behavior:'smooth', block:'start'});
+      });
+    });
+
+    // run on load
+    window.addEventListener('load', () => {
+      animateSkills();
+      revealCards();
+    });
+
+    // if user uses keyboard esc to close modal
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && modal.classList.contains('open')) {
+        modal.classList.remove('open'); modal.setAttribute('aria-hidden','true');
+      }
+    });
+
+    // Fallback for images if not found
+    document.addEventListener('DOMContentLoaded', function() {
+      const images = document.querySelectorAll('img');
+      const fallbackImage = 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=400&h=400&fit=crop&crop=face';
+      
+      images.forEach(img => {
+        img.addEventListener('error', function() {
+          this.src = fallbackImage;
+        });
+      });
+    });
+  </script>
+</body>
+</html>
